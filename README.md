@@ -1,6 +1,21 @@
 <p align="center">Passord Vault</p>
 
-## About Laravel
+## à propos de la technologie
+
+La technologie choisie est php avec le framework Laravel et le moteur de template blade, et avec tailwindcss pour le CSS.
+
+## Installation du projet
+en ligne de commande, rendez-vous dans le dossier du projet
+
+taper la commande 'composer i', afin d'installer les dépendances.
+
+taper la commande 'php artisan migrate' afin de déployer la base de donnée.
+
+taper la commande 'php artisan serve' pour lancer le serveur.
+
+via une nouvelle invite de commande, lancer la commande npm run dev (toujours dans le dossier du projet).
+
+## à propos du projet
 
 Bienvenus dans ce projet de sauvegarde de mots de passe.
 
@@ -17,47 +32,54 @@ Ce projet vous permettra de tester une sauvegarde d'identifiants, adresses mail,
 
 Les données ainsi saugardées pourront ensuite étre modifiées ou supprimées
 
+## Le système de base de données
 
-## Learning Laravel
+La base de donnée dispose de deux tables: users et vaults
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-users contient les données concernant les utilisateurs.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-vaults continent les données appartenant aux utilisateurs.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Les tables sont associées par une relation One To Many (un utilisateur pouvant posséder plusieurs vault, un vault ne pouvant avoir qu'un seul propriétaire).
 
-## Laravel Sponsors
+## fonctionnement du back
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Le back fonctionne grâce au design pattern modele-view-controller.
+et une base de donnée mysql.
 
-### Premium Partners
+Les modeles (App\Models\...) User et Vault permettent de communiquer avec la base de données avec Eloquent.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Les Controller (App\Http\Controllers\...) 
 
-## Contributing
+-ProfileController: fabriquer par laravel permet de gérer l'enregistrement et l'identification de l'utilisateur.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-VaultController: fabriquer par moi-même permet d'agir sur la base de donnée avec les actions: 
 
-## Code of Conduct
+    -show: affiche toutes les entrées liées à l'utilisateur,     
+    -store: sauvarde une nouvelle entrée dans la table, 
+    -update: met à jour l'entrée modifiée par l'utilisateur, 
+    -destroy: supprime l'entrée sélectionnée par l'utilisateur,
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Ces actions sont déclanchée par des routes (routes\web.php).
 
-## Security Vulnerabilities
+Ces routes sont appelées par les action de l'utilisateur sur le front.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## fonctionnement du Front
 
-## License
+- la page d'accueil ne dispose que d'un titre, une explication rapide du projet et deux liens pour les utilisateur
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-Register permet de créer rapidement un compte utilisateur.
+-Log in permet de se connecter avec les bons identifiants.
+
+-les pages de connection et d'inscription sont les pages par défault générées par Laravel.
+
+-la page de l'utilisateur dispose d'un menu pour la gestion du compte utilisateur (Laravel default)
+
+-la page contient deux section:
+
+-un formulaire permettant de créer une nouvelle entrée avec un bouton create.
+
+-un formulaire permettant de modifier les entrée existante avec un bouton Update.
+
+-et un bouton permettant de supprimer l'entrée associée.
+

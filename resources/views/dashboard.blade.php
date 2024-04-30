@@ -57,14 +57,14 @@
                                         <input type="text" name="password" value="{{ $data['password'] }}" class="text-sm">
                                     </td>
                                     <td>
-                                        <input type="submit" value="Modifier" class="text-sm bg-blue-500 rounded-lg px-2 hover:bg-blue-600">
+                                        <input type="submit" value="Update" class="text-sm bg-blue-500 rounded-lg px-2 hover:bg-blue-600">
                                     </td>
                                 </form>
                                 <td>
                                     <form action="/delete/{{$data['id']}}" method="POST">
                                         @csrf
                                         @method("DELETE")
-                                        <input type="submit" value="Supprimer" class="text-sm bg-red-500 rounded-lg px-2 hover:bg-red-600">
+                                        <input type="submit" value="delete" class="text-sm bg-red-500 rounded-lg px-2 hover:bg-red-600">
                                     </form>
                                 </td>
                             </tr>
